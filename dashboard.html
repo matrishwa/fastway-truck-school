@@ -247,6 +247,19 @@
             margin-left: -15px;
         }
         
+        .embed-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 2px solid #dda15e;
+        }
+        
+        .embed-container iframe {
+            max-width: 100%;
+            height: auto;
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;
@@ -259,6 +272,11 @@
             
             .header h1 {
                 font-size: 20px;
+            }
+            
+            .embed-container iframe {
+                width: 100%;
+                height: auto;
             }
         }
         
@@ -589,6 +607,11 @@
                         <li>Report: "There is no exhaust leak in the cab"</li>
                         <li>Read Schedule 1 (Minor and Major)</li>
                     </ol>
+                </div>
+                
+                <div class="embed-container">
+                    <p style="font-weight: 600; color: #5d3b3b; margin-bottom: 10px;">📹 Video Reference - Exhaust System Inspection:</p>
+                    <iframe src="https://workdrive.matrishwa.com/embed/c7239cd8c3b268438498ea20351d6856f17db?toolbar=false&appearance=light&themecolor=green" scrolling="no" frameborder="0" allowfullscreen="true" width="800" height="450" title="Exhaust System Inspection Video"></iframe>
                 </div>
             </div>
         </div>
@@ -1246,7 +1269,10 @@
     <script>
         // Check authentication
         function checkAuth() {
-            if (localStorage.getItem('authenticated') !== 'true') {
+            const students = JSON.parse(localStorage.getItem('students')) || [];
+            const authenticated = localStorage.getItem('authenticated');
+            
+            if (authenticated !== 'true' && (!students || students.length === 0)) {
                 window.location.href = 'index.html';
             }
         }
