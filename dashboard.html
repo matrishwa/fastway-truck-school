@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truck Driver Inspection Training - Fastway School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f1ed;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #5d3b3b;
+            color: #f5f1ed;
+            padding: 20px;
+            overflow-y: auto;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+        
+        .sidebar-header {
+            background: #8b5a5a;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .menu-section {
+            margin-bottom: 20px;
+        }
+        
+        .menu-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #dda15e;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .menu-item {
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .menu-item:hover {
+            background: #8b5a5a;
+            transform: translateX(5px);
+        }
+        
+        .menu-item.active {
+            background: #dda15e;
+            color: #5d3b3b;
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            width: 100%;
+            padding: 10px;
+            background: #c41e3a;
+            color: #f5f1ed;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #a01829;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        
+        .header {
+            background: #8b5a5a;
+            color: #f5f1ed;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #8b5a5a;
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-title {
+            color: #5d3b3b;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dda15e;
+        }
+        
+        .subsection {
+            margin-bottom: 25px;
+        }
+        
+        .subsection-title {
+            color: #8b5a5a;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .subsection-title::before {
+            content: '▸';
+            margin-right: 8px;
+            color: #dda15e;
+            font-size: 20px;
+        }
+        
+        .procedure {
+            background: #ede8e3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .procedure strong {
+            color: #5d3b3b;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .checklist li {
+            padding: 8px 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .checklist li::before {
+            content: '✓ ';
+            color: #5d3b3b;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .important-note {
+            background: #ffe8e8;
+            border-left: 4px solid #c41e3a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #5d3b3b;
+        }
+        
+        .important-note strong {
+            color: #c41e3a;
+        }
+        
+        .conditions-box {
+            background: #ede8e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #8b5a5a;
+        }
+        
+        .conditions-box h3 {
+            color: #5d3b3b;
+            margin-bottom: 15px;
+        }
+        
+        .conditions-box ul {
+            list-style: none;
+            color: #333;
+        }
+        
+        .conditions-box li {
+            padding: 8px 0;
+            margin-left: 20px;
+        }
+        
+        .conditions-box li::before {
+            content: '•';
+            color: #8b5a5a;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-left: -15px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>🚚 Fastway School</h2>
+            <p>Training Materials</p>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">📋 Introduction</div>
+            <div class="menu-item active" onclick="showSection('conditions')">Passing Conditions</div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">🔧 Inspections</div>
+            <div class="menu-item" onclick="showSection('air-brake')">1. Air Brake System</div>
+            <div class="menu-item" onclick="showSection('cab')">2. Cab</div>
+            <div class="menu-item" onclick="showSection('coupling')">3. Coupling Devices</div>
+            <div class="menu-item" onclick="showSection('exhaust')">4. Exhaust System</div>
+            <div class="menu-item" onclick="showSection('frame')">5. Frame & Cargo</div>
+            <div class="menu-item" onclick="showSection('fuel')">6. Fuel System</div>
+            <div class="menu-item" onclick="showSection('glass')">6.2 Glass & Mirrors</div>
+            <div class="menu-item" onclick="showSection('suspension')">7. Suspension System</div>
+            <div class="menu-item" onclick="showSection('tires')">8. Tires</div>
+            <div class="menu-item" onclick="showSection('wheels')">9. Wheels & Hubs</div>
+            <div class="menu-item" onclick="showSection('incab')">10. In-Cab Checks</div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">🔗 Coupling Skills</div>
+            <div class="menu-item" onclick="showSection('uncoupling')">11. Uncoupling</div>
+            <div class="menu-item" onclick="showSection('brake-chambers')">Brake Chamber Sizes</div>
+        </div>
+        
+        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
+    
+    <div class="main-content">
+        <!-- Passing Conditions -->
+        <div id="conditions" class="content-section active">
+            <div class="header">
+                <h1>🏆 Conditions for Passing the Truck Driver Program Exam</h1>
+                <p>Fastway Truck & Forklift Driving School</p>
+            </div>
+            
+            <div class="conditions-box">
+                <h3>To pass your road test, you must operate your vehicle safely, and:</h3>
+                <ul>
+                    <li><strong>Daily Inspection Test:</strong> Maximum 1 error allowed</li>
+                    <li><strong>Uncoupling & Coupling:</strong> Up to 2 errors total, no more than 5 pull-ups</li>
+                    <li><strong>On-road & Backing Skills Test:</strong> Up to 30 errors allowed, with backing completed within 10 minutes</li>
+                </ul>
+            </div>
+            
+            <div class="conditions-box">
+                <h3>📊 Air Pressure Specifications</h3>
+                <ul>
+                    <li>Normal Operating Pressure: <strong>100-120 PSI</strong></li>
+                    <li>Low-air Warning Activation: <strong>55 PSI</strong></li>
+                    <li>Compressor Cut-in & Cut-out Range: <strong>80 - 145 PSI</strong></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Air Brake System -->
+        <div id="air-brake" class="content-section">
+            <h2 class="section-title">1️⃣ Air Brake System</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">1.1 - Slow Air Pressure Build-Up Rate</h3>
+                <div class="procedure">
+                    <strong>Definition:</strong> The vehicle has a minor defect when it takes longer than two minutes for air pressure to build up from 85 to 100 psi.
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>START THE TRUCK</li>
+                        <li>Check the air gauges and say air pressure is more than 100 PSI (normal operating range: 100-120 PSI)</li>
+                        <li>Pump the service brake pedal to drop the Air Pressure to 80 PSI</li>
+                        <li>Start the timer from 85 PSI and keep RPM between 600 to 900</li>
+                        <li>Once air pressure reaches 100 PSI, stop the timer</li>
+                        <li>Report: "It took (___) seconds to build air pressure from 85 PSI to 100 PSI, which is less than 2 minutes"</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">1.2 - Audible Air Leaks & Air Loss</h3>
+                <div class="procedure">
+                    <strong>Definition:</strong> Minor defect if air leak heard; Major defect if air-loss rate exceeds limit (pressure drops more than 4 psi in one minute). Note: For Class D, specification is 3 PSI.
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Check air gauges - pressure should be above 100 PSI</li>
+                        <li>Release both brakes (YELLOW IN & RED IN)</li>
+                        <li>Press service brakes and wait for few seconds</li>
+                        <li>Report exact Air Pressure (___) PSI</li>
+                        <li>Turn off tractor, then turn Ignition on</li>
+                        <li>Roll down window, start timer, and check for air leakage</li>
+                        <li>Keep holding service brake pedal for 1 minute</li>
+                        <li>Report: "Air loss is [amount] psi. It's less than 4 psi"</li>
+                        <li>Apply both parking brakes</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">1.3 - Pushrod Stroke Adjustment Limit</h3>
+                <div class="procedure">
+                    <strong>Definition:</strong> Vehicle has a defect when pushrod stroke exceeds the prescribed limit.
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Start engine and ensure pressure is 100 psi or above</li>
+                        <li>Release tractor parking brakes</li>
+                        <li>Move steering all way to the left</li>
+                        <li>Open the hood and turn off engine (keep ignition on)</li>
+                        <li>Go outside, measure chamber size, and mark the pushrod</li>
+                        <li>Go inside cab and apply service brake with brake buddy (pressure 90-100 psi)</li>
+                        <li>Go outside again and measure pushrod stroke</li>
+                        <li>Report: "Brake chamber size is 24. Maximum adjustment limit is 45 mm. Stroke is within allowed limit."</li>
+                        <li>Read Schedule 1 & (YELLOW OUT)</li>
+                    </ol>
+                    
+                    <div class="important-note">
+                        <strong>Standard Brake Chamber Size:</strong> 24<br>
+                        <strong>Maximum Adjustment Limit:</strong> 45 mm
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">1.4 - Inoperative Towing Vehicle Tractor Protection Valve</h3>
+                <div class="procedure">
+                    <strong>Note:</strong> Not applicable for Class D
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Start the truck</li>
+                        <li>Go outside and disconnect the service line (BLUE) - place on bobcat grill</li>
+                        <li>Come inside and confirm air pressure is above 100 PSI</li>
+                        <li>Release tractor brake (YELLOW IN)</li>
+                        <li>After few seconds, report air pressure (___) PSI</li>
+                        <li>Turn off truck, turn Ignition on, press brake pedal and wait 10 seconds</li>
+                        <li>After 10-15 seconds, confirm no audible air leak from service line</li>
+                        <li>Report: "Tractor protection system is working"</li>
+                        <li>Pull YELLOW (OUT) and reconnect service line</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">1.5 - Low-Air Warning System</h3>
+                <div class="procedure">
+                    <strong>Definition:</strong> Major defect when low air warning fails to activate or activates before air pressure drops below 55 psi.
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Start the truck</li>
+                        <li>Ensure air pressure is 100 or above PSI</li>
+                        <li>Pump the brake pedal and drop air pressure until buzzer activates</li>
+                        <li>Once buzzer is ON, report: "Low air warning activated at (___) PSI, which is above 55 PSI. Everything is good."</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">1.6 - Hydraulic Brakes</h3>
+                <div class="procedure">
+                    <strong>Note:</strong> This vehicle is equipped with air brakes and does not have a hydraulic brake system.
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">If Hydraulic Brakes Present:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Check brake-fluid level - must be above minimum</li>
+                        <li>Ensure not less than one-quarter full</li>
+                        <li>Check for leaks</li>
+                        <li>Verify no cracks or damage</li>
+                        <li>Confirm properly attached</li>
+                        <li>Read Schedule 1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cab -->
+        <div id="cab" class="content-section">
+            <h2 class="section-title">2️⃣ Cab</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">2.1 - Occupant Compartment Door Failure</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Exterior Check:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Door has no visible damage or cracks</li>
+                        <li>Window is intact</li>
+                        <li>Door is closed securely from the outside</li>
+                        <li>Handle is present and functions correctly</li>
+                        <li>Door opens fully without resistance</li>
+                        <li>No excessive play or looseness</li>
+                        <li>Door closes securely from the outside</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Interior Check:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Door shows no signs of damage or cracks</li>
+                        <li>Door panel is secure</li>
+                        <li>Fasteners and hinges are tight and in good condition</li>
+                        <li>Door closes securely from the inside and stays closed</li>
+                        <li>Opens properly from the inside</li>
+                        <li>Read Schedule 1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Coupling Devices -->
+        <div id="coupling" class="content-section">
+            <h2 class="section-title">3️⃣ Coupling Devices</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">3.1 - Check Coupler Mounting & Fastener</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Fifth wheel is properly attached with frame using Coupler and Fasteners</li>
+                        <li>No crack or damage on fifth wheel and mounting plate</li>
+                        <li>All Couplers and fasteners are present, tight and secure</li>
+                        <li>No loose or missing fasteners</li>
+                        <li>Safety PIN is present</li>
+                        <li>Check other side - same verification</li>
+                        <li>Fifth wheel on opposite side is properly attached</li>
+                        <li>All Couplers and fasteners present, tight and secure</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">3.2 - Check Coupling Security</h3>
+                <div class="procedure">
+                    <strong>Definition:</strong> Major defect if movement exceeds 1/2 inch (13 mm) in forward/rearward direction or if coupler is damaged, broken, cracked, or has loose/missing components.
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Fifth wheel release handle is in locked position</li>
+                        <li>All fasteners on coupler are tight and secure (check both sides)</li>
+                        <li>Fifth wheel and apron plate have no crack, damage, or gap</li>
+                        <li>Go under trailer and check that Jaws are locked (coupler is secure)</li>
+                        <li>Go inside, start truck, release truck brake (YELLOW IN)</li>
+                        <li>Put transmission in Drive and move forward</li>
+                        <li>Pull tractor brake immediately (YELLOW OUT), put transmission in Neutral</li>
+                        <li>Come outside and mark the line on upper coupler plate front of safety pin</li>
+                        <li>Go back inside, release truck brake (YELLOW IN)</li>
+                        <li>Put transmission in Reverse and stretch truck backward</li>
+                        <li>Pull tractor brake (YELLOW OUT), put transmission in Neutral</li>
+                        <li>Come outside and mark the line again on upper coupler plate</li>
+                        <li>Measure both points</li>
+                        <li>Report: "Marks are in same place - there is no free play. Coupling is secure."</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">3.3 - Check Coupler Locking Mechanism</h3>
+                <div class="procedure">
+                    <strong>Definition:</strong> Defect when coupling or locking mechanism is damaged or fails to lock.
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Check fifth wheel release handle is in locked position (IN)</li>
+                        <li>All fasteners on mounting plate are present, tight and secure</li>
+                        <li>Fifth wheel and upper coupler plate have no crack, damage, or gap</li>
+                        <li>Go under trailer and verify Jaw is locked around kingpin</li>
+                        <li>No crack, damage, or gap between fifth wheel and trailer plate</li>
+                        <li>Check other side - same verification</li>
+                        <li>Go inside, start truck, release truck brake (YELLOW IN)</li>
+                        <li>Put transmission in Drive and stretch truck 2 times (Tug Test)</li>
+                        <li>Apply tractor brake (YELLOW OUT) and come outside</li>
+                        <li>Verify fifth wheel release handle is IN</li>
+                        <li>Verify no gap between fifth wheel and apron plate</li>
+                        <li>Verify Jaw is still locked</li>
+                        <li>Report: "Coupler locking mechanism is working properly"</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exhaust System -->
+        <div id="exhaust" class="content-section">
+            <h2 class="section-title">4️⃣ Exhaust System</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">4.1 - Exhaust System Inspection</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Procedure:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Start the truck and open the hood</li>
+                        <li>Check complete exhaust system for cracks, damage, leaks, or smell</li>
+                        <li>Inspect Muffler:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No crack or damage</li>
+                                <li>Properly attached to tractor body</li>
+                                <li>No exhaust leak or smell</li>
+                            </ul>
+                        </li>
+                        <li>Get in cab and run cab fan</li>
+                        <li>Check for any leaks or smell</li>
+                        <li>Report: "There is no exhaust leak in the cab"</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Frame & Cargo -->
+        <div id="frame" class="content-section">
+            <h2 class="section-title">5️⃣ Frame & Cargo Body</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">5.1 - Frame and Cargo Body Inspection</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">FOR FRAME:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Open the hood</li>
+                        <li>Check frame from front to back for cracks, damages, or bends</li>
+                        <li>Frame members are tight and secure</li>
+                        <li>No crack or damage</li>
+                        <li>No sagging, collapsing or visible shifting</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">FOR CARGO BODY:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Check trailer from front to back, left to right for damages</li>
+                        <li>Reflectors are present</li>
+                        <li>Safety sticker is present</li>
+                        <li>Landing legs have no crack or damage</li>
+                        <li>Check under trailer for sagging or shifting on cross members</li>
+                        <li>Cross members properly attached</li>
+                        <li>Check boggy for cracks or damages</li>
+                        <li>Lock pins are present and in locked position</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fuel System -->
+        <div id="fuel" class="content-section">
+            <h2 class="section-title">6️⃣ Fuel System</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">6.1 - Fuel System Inspection</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Fuel tank cap:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present and tight and secure</li>
+                                <li>No crack or damage</li>
+                            </ul>
+                        </li>
+                        <li>Fuel tank straps:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Tight and properly attached</li>
+                                <li>Free from cracks, rust, or damage</li>
+                                <li>Securely hold tank at all times</li>
+                            </ul>
+                        </li>
+                        <li>Fuel tank body:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No crack or damage on tank</li>
+                                <li>Properly mounted to vehicle frame</li>
+                                <li>Not loose or shifting</li>
+                            </ul>
+                        </li>
+                        <li>Look under tank for fuel leaks on floor</li>
+                        <li>Check under engine for leaks under hood</li>
+                        <li>Check second fuel tank (if equipped)</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Glass & Mirrors -->
+        <div id="glass" class="content-section">
+            <h2 class="section-title">6.2️⃣ Glass & Mirrors</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">6.2 - Glass & Mirrors Inspection</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>All external mirrors and attachments:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Secure, not broken or damaged</li>
+                            </ul>
+                        </li>
+                        <li>Driver side window glass:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present, no crack or damage</li>
+                                <li>Tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Driver side mirrors:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present, no crack or damage</li>
+                                <li>Tight and secure</li>
+                                <li>Bracket/frame properly attached, tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Driver side hood mirror:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present, no crack or damage</li>
+                                <li>Properly attached, tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Windshield:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Good condition, no crack or damage</li>
+                                <li>Tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Right hood mirror:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Good condition, no crack or damage</li>
+                                <li>Bracket properly attached, tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Passenger side mirrors:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Good condition, no crack or damage</li>
+                                <li>Properly attached to tractor body</li>
+                                <li>Bracket tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Right side glass:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Good condition, no crack or damage</li>
+                                <li>Tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Curb side mirror:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Good condition, no crack or damage</li>
+                                <li>Visibly attached to tractor body</li>
+                                <li>Tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Suspension System -->
+        <div id="suspension" class="content-section">
+            <h2 class="section-title">7️⃣ Suspension System</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">7.1 - Check Air Suspension</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Check airbag for:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cuts, damage, patches, or bruises</li>
+                                <li>Properly mounted</li>
+                                <li>Properly inflated</li>
+                                <li>No air leak</li>
+                            </ul>
+                        </li>
+                        <li>Read Schedule for minor defects (air leak in air suspension system)</li>
+                        <li>Read Schedule for major defects (damaged, cut, bruised, cracked to braid, deflated airbag, or insecurely mounted airbag)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">7.2 - Check Spring Leaf</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Check both spring leaves for:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damage</li>
+                                <li>Not shifted</li>
+                                <li>Not touching any component</li>
+                                <li>Properly mounted</li>
+                            </ul>
+                        </li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">7.3 - Check Suspension Fastener</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Both U-bolts:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present, no crack or damage</li>
+                                <li>Tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Shock absorber fasteners:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present, no crack or damage</li>
+                                <li>Tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Leaf spring hanger fasteners:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present, no crack or damage</li>
+                                <li>Tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tires -->
+        <div id="tires" class="content-section">
+            <h2 class="section-title">8️⃣ Tires</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">8.1 - Check for Tire Leak</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Hit the tire with a hammer and check tire pressure (tire not deflated)</li>
+                        <li>No air leak heard or felt from outer side wall</li>
+                        <li>No air leak heard or felt from tread side</li>
+                        <li>No air leak heard or felt from inner side wall</li>
+                        <li>No air leak heard or felt from air valve</li>
+                        <li>Tire is not touching any other component</li>
+                        <li>If rear tires:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Tires not touching each other</li>
+                                <li>Nothing in between the tires</li>
+                            </ul>
+                        </li>
+                        <li>Read Schedule 1</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">8.2 - Check Tire Tread & Sidewall</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Outer sidewall:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cuts, damage, or exposed cords</li>
+                            </ul>
+                        </li>
+                        <li>Tread surface:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Good condition</li>
+                                <li>No cuts, damage, or exposed cords</li>
+                            </ul>
+                        </li>
+                        <li>Tread depth:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>At least 3 mm on steer (front) tires</li>
+                                <li>At least 1.5 mm on rear/trailer tires</li>
+                            </ul>
+                        </li>
+                        <li>Inner sidewall:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cuts, damage, or exposed cords</li>
+                                <li>Not touching any vehicle components</li>
+                            </ul>
+                        </li>
+                        <li>Dual tires:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Nothing stuck between them</li>
+                                <li>Tires not touching each other</li>
+                                <li>Not touching any vehicle component except mud flap</li>
+                            </ul>
+                        </li>
+                        <li>Markings:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No tire marked "Not for Highway Use"</li>
+                            </ul>
+                        </li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Wheels & Hubs -->
+        <div id="wheels" class="content-section">
+            <h2 class="section-title">9️⃣ Wheels, Hubs, and Fasteners</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">9.1 - Check Hub</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Sight glass:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Not broken</li>
+                                <li>Hub oil level is maximum</li>
+                            </ul>
+                        </li>
+                        <li>Hub cap:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damage</li>
+                                <li>Cap fasteners are tight and secure</li>
+                                <li>No oil leak</li>
+                            </ul>
+                        </li>
+                        <li>Inside wheel seal:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No leaks</li>
+                                <li>No oil dripping on floor</li>
+                            </ul>
+                        </li>
+                        <li>No evidence of imminent wheel, hub, and bearing failure</li>
+                        <li>Read Schedule 1</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">9.2 - Check Wheel Fasteners</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Wheel fasteners:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Present, tight, and secure</li>
+                                <li>No missing fasteners</li>
+                                <li>No crack or damage (check inside wheel)</li>
+                            </ul>
+                        </li>
+                        <li>All parts are tight and secure</li>
+                        <li>No missing fasteners</li>
+                        <li>No evidence of imminent wheel, hub, and bearing failure</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">9.3 - Check Wheel & Attaching Parts</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Pull the rim - should be tight, safe, and secure</li>
+                        <li>All around the RIM:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks, damage, or broken areas</li>
+                                <li>All RIM fasteners are tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>Inside the rim:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Attaching parts and fasteners are tight and secure</li>
+                            </ul>
+                        </li>
+                        <li>No evidence of imminent wheel, hub, and bearing failure</li>
+                        <li>Read Schedule 1 (Minor and Major)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- In-Cab Checks -->
+        <div id="incab" class="content-section">
+            <h2 class="section-title">🔟 In-Cab Checks & Emergency Equipment</h2>
+            
+            <div class="important-note">
+                <strong>Note:</strong> During the in-cab check, you are not required to read the minor or major defects.
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">10 - In-Cab Inspection Procedure</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Starting Up:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Start the engine</li>
+                        <li>Check all lights are working when you turn the ignition on</li>
+                        <li>No major warning signs on dashboard (only parking brake and seat belt signs)</li>
+                    </ol>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Gauges:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>All gauges are working</li>
+                        <li>Both air pressure gauges working properly</li>
+                        <li>Pressure is at 100 PSI (normal operating range)</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Steering Wheel:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Excessive free play less than 10 degrees</li>
+                        <li>Works properly to the left and right</li>
+                        <li>Properly attached to the tractor</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Seat & Seat Belt:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Driver seat adjusts up/down and forward/reverse</li>
+                        <li>Seat stays in locked position</li>
+                        <li>Properly attached to the tractor</li>
+                        <li>Seat belt:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cuts or damages</li>
+                                <li>Locks and unlocks properly</li>
+                                <li>Tether securely attached on both sides</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Glasses & Mirrors:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Both side window glasses:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damages</li>
+                                <li>No obstruction, clear view</li>
+                            </ul>
+                        </li>
+                        <li>Windshield:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damages</li>
+                                <li>Clear view, no obstruction</li>
+                            </ul>
+                        </li>
+                        <li>All rearview mirrors:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damages</li>
+                                <li>Clear view, properly adjusted</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Wiper & Washer:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Wiper blade:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No damages</li>
+                            </ul>
+                        </li>
+                        <li>Wiper and washer working at all speeds</li>
+                        <li>Cleaning windshield properly</li>
+                        <li>Giving clear view</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Heater & Defroster:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Heater and defroster working at all speeds</li>
+                        <li>Face and leg mode working</li>
+                        <li>Cleaning windshield properly</li>
+                        <li>Giving clear view</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">10.1 - Emergency Equipment and Safety Devices</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Fire Extinguisher:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Located on left side</li>
+                        <li>Full</li>
+                        <li>Safety pin is present</li>
+                        <li>Use for minor fires</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">First-Aid Kit:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Present and contains:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Mask</li>
+                                <li>Scissors</li>
+                                <li>Gloves</li>
+                                <li>Bandages</li>
+                            </ul>
+                        </li>
+                        <li>Use for minor injuries</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Safety Triangles:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>All 3 triangles present in red box</li>
+                        <li>No cracks, damage, or missing parts</li>
+                        <li>Place 20 meters apart for total distance of 60 meters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Uncoupling -->
+        <div id="uncoupling" class="content-section">
+            <h2 class="section-title">1️⃣1️⃣ Uncoupling & Coupling Procedures</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Uncoupling Procedure</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Safety Preparations:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Apply parking brakes</li>
+                        <li>Chock wheels to prevent vehicle movement</li>
+                        <li>Ensure floor beneath landing gear is hard and even</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Uncoupling Steps:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Lower landing legs of trailer</li>
+                        <li>Ensure handle is secure</li>
+                        <li>Disconnect supply lines from trailer</li>
+                        <li>Secure supply lines to avoid damages</li>
+                        <li>Make sure king pin lock handle is OUT</li>
+                        <li>Jaw lock is OPEN</li>
+                        <li>Release tractor parking brakes (YELLOW IN)</li>
+                        <li>Do not release trailer parking brakes</li>
+                        <li>Pull tractor forward until fifth wheel is completely out (90 degree)</li>
+                        <li>Confirm landing legs are holding trailer weight</li>
+                        <li>Verify trailer is level</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Inspection Before Coupling</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Truck Inspection Steps:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Glad hands and electrical plug:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damages</li>
+                                <li>O-rings in good condition</li>
+                                <li>Lines attached correctly</li>
+                            </ul>
+                        </li>
+                        <li>King pin lock handle:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>OUT and not bent</li>
+                            </ul>
+                        </li>
+                        <li>Mounting plate:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damages</li>
+                            </ul>
+                        </li>
+                        <li>All bolts:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Tight and secure</li>
+                                <li>No missing fasteners</li>
+                            </ul>
+                        </li>
+                        <li>Fifth wheel:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No crack or damage</li>
+                                <li>Tilting back</li>
+                                <li>Has enough grease</li>
+                                <li>Safety pin is present</li>
+                            </ul>
+                        </li>
+                        <li>Jaw lock is OPEN</li>
+                        <li>Four-way flashers working</li>
+                        <li>Check other side mounting plate and fastener</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Coupling Procedure</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Coupling Steps:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Verify way is clear</li>
+                        <li>Honk horn twice to signal start of coupling</li>
+                        <li>Align tractor and trailer</li>
+                        <li>Touch fifth wheel and trailer to ensure proper connection</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Trailer Checks After Coupling</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Post-Coupling Inspection:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Trailer height is good</li>
+                        <li>Inspect glad hands, electrical plug, and supply lines:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No damages</li>
+                                <li>Properly attached</li>
+                            </ul>
+                        </li>
+                        <li>Apron plate and king pin:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>No cracks or damages</li>
+                                <li>Has enough grease</li>
+                            </ul>
+                        </li>
+                        <li>King pin and fifth wheel aligned correctly</li>
+                        <li>Conduct tug test to ensure trailer is securely connected</li>
+                        <li>Kingpin lock handle fully IN</li>
+                        <li>No gap between trailer and fifth wheel (both sides)</li>
+                        <li>Jaw is locked</li>
+                        <li>Connect supply lines to trailer</li>
+                    </ol>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Additional Checks:</h4>
+                    <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Four-way flashers working correctly</li>
+                        <li>Landing legs UP and handle secure</li>
+                        <li>Inform examiner you will supply air and check for leaks</li>
+                        <li>Turn off engine and push RED VALVE IN</li>
+                        <li>Turn ignition on and listen for air leaks in supply line coupler</li>
+                        <li>Confirm no air leak in supply line coupler</li>
+                        <li>Push brake pedal (BLUE) and listen for leaks in service line coupler</li>
+                        <li>Confirm no air leak in service line coupler</li>
+                        <li>Pull out trailer parking brake (RED VALVE IN)</li>
+                        <li>Report: "Uncoupling and coupling is done"</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Brake Chambers -->
+        <div id="brake-chambers" class="content-section">
+            <h2 class="section-title">⚙️ Brake Chamber Sizes</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Common Brake Chamber Sizes</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Standard Sizes:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li><strong>Most common:</strong> Size 30</li>
+                        <li><strong>Other sizes:</strong> 16, 20, 24, and 36</li>
+                        <li><strong>Important:</strong> Size affects braking force — larger chambers apply more force</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Standard vs. Long-Stroke (LS) Brake Chambers</h3>
+                <div class="procedure">
+                    <h4 style="margin-top: 0; color: #5d3b3b;">Key Points:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>Long-stroke chambers give more pushrod travel</li>
+                        <li>Can improve braking but must still be inspected correctly</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px; color: #5d3b3b;">Identification:</h4>
+                    <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                        <li>If connection port is <strong>ROUND:</strong> Short or regular stroke chamber</li>
+                        <li>If connection port is <strong>SQUARE:</strong> Long-stroke (LS) brake chamber</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check authentication
+        function checkAuth() {
+            if (localStorage.getItem('authenticated') !== 'true') {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Hide all menu items as active
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Mark menu item as active
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            document.querySelector('.main-content').scrollTop = 0;
+        }
+        
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('authenticated');
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // Check authentication on page load
+        window.addEventListener('load', checkAuth);
+    </script>
+</body>
+</html>
