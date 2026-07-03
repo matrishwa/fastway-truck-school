@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management - Fastway School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f1ed;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            background: #5d3b3b;
+            color: #f5f1ed;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .section-title {
+            color: #5d3b3b;
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dda15e;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #5d3b3b;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dda15e;
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #5d3b3b;
+            box-shadow: 0 0 5px rgba(93, 59, 59, 0.3);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #5d3b3b;
+            color: #f5f1ed;
+        }
+        
+        .btn-primary:hover {
+            background: #8b5a5a;
+        }
+        
+        .btn-success {
+            background: #2d7d3a;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #1f5a2a;
+        }
+        
+        .btn-danger {
+            background: #c41e3a;
+            color: white;
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+        
+        .btn-danger:hover {
+            background: #a01829;
+        }
+        
+        .btn-copy {
+            background: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+        
+        .btn-copy:hover {
+            background: #0b7dda;
+        }
+        
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .student-table th {
+            background: #5d3b3b;
+            color: #f5f1ed;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .student-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .student-table tr:hover {
+            background: #ede8e3;
+        }
+        
+        .password-display {
+            background: #f9f5f2;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #5d3b3b;\n            font-weight: 600;\n        }\n        \n        .success-msg {\n            background: #d4edda;\n            color: #155724;\n            padding: 15px;\n            border-radius: 5px;\n            margin-bottom: 20px;\n            display: none;\n            border-left: 4px solid #28a745;\n        }\n        \n        .info-box {\n            background: #e7f3ff;\n            border-left: 4px solid #2196F3;\n            padding: 15px;\n            border-radius: 5px;\n            margin: 20px 0;\n            color: #0c5aa0;\n            font-size: 14px;\n            line-height: 1.6;\n        }\n        \n        .two-column {\n            display: grid;\n            grid-template-columns: 1fr 1fr;\n            gap: 20px;\n            margin-bottom: 20px;\n        }\n        \n        @media (max-width: 768px) {\n            .two-column {\n                grid-template-columns: 1fr;\n            }\n        }\n        \n        .action-buttons {\n            display: flex;\n            gap: 5px;\n        }\n        \n        .tab-buttons {\n            display: flex;\n            gap: 10px;\n            margin-bottom: 20px;\n            border-bottom: 2px solid #ddd;\n        }\n        \n        .tab-btn {\n            padding: 12px 20px;\n            background: none;\n            border: none;\n            border-bottom: 3px solid transparent;\n            color: #5d3b3b;\n            font-weight: 600;\n            cursor: pointer;\n            transition: all 0.3s;\n        }\n        \n        .tab-btn.active {\n            border-bottom-color: #dda15e;\n            color: #8b5a5a;\n        }\n        \n        .tab-content {\n            display: none;\n        }\n        \n        .tab-content.active {\n            display: block;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"header\">\n            <h1>🎓 Student Management System</h1>\n            <p>Create unique passwords for each student - No coding required!</p>\n        </div>\n        \n        <div class=\"success-msg\" id=\"successMsg\">✅ Operation completed successfully!</div>\n        \n        <div class=\"info-box\">\n            💡 <strong>How it works:</strong> Add each student's name, email, and create a unique password. Students will use their personal password to login to the training materials.\n        </div>\n        \n        <!-- Tab Navigation -->\n        <div class=\"tab-buttons\">\n            <button class=\"tab-btn active\" onclick=\"showTab('add-student')\">➕ Add New Student</button>\n            <button class=\"tab-btn\" onclick=\"showTab('manage-students')\">📋 Manage Students</button>\n            <button class=\"tab-btn\" onclick=\"showTab('quick-actions')\">⚡ Quick Actions</button>\n        </div>\n        \n        <!-- Tab 1: Add New Student -->\n        <div id=\"add-student\" class=\"tab-content active\">\n            <h2 class=\"section-title\">Add New Student</h2>\n            \n            <div class=\"two-column\">\n                <div>\n                    <div class=\"form-group\">\n                        <label for=\"studentName\">Student Name:</label>\n                        <input type=\"text\" id=\"studentName\" placeholder=\"e.g., John Smith\">\n                    </div>\n                    \n                    <div class=\"form-group\">\n                        <label for=\"studentEmail\">Email Address:</label>\n                        <input type=\"email\" id=\"studentEmail\" placeholder=\"e.g., john@email.com\">\n                    </div>\n                </div>\n                \n                <div>\n                    <div class=\"form-group\">\n                        <label for=\"studentPassword\">Password:</label>\n                        <input type=\"text\" id=\"studentPassword\" placeholder=\"Create a password\">\n                        <small style=\"color: #666; margin-top: 5px; display: block;\">💡 Tip: Use simple passwords like: truck2024, driver123, etc.</small>\n                    </div>\n                </div>\n            </div>\n            \n            <div class=\"form-group\">\n                <label for=\"studentNotes\">Notes (Optional):</label>\n                <textarea id=\"studentNotes\" placeholder=\"e.g., Phone: 555-1234, Class Time: Morning\"></textarea>\n            </div>\n            \n            <div class=\"button-group\">\n                <button class=\"btn-success\" onclick=\"addStudent()\">✅ Add Student</button>\n                <button class=\"btn-primary\" onclick=\"generatePassword()\">🔐 Generate Random Password</button>\n            </div>\n        </div>\n        \n        <!-- Tab 2: Manage Students -->\n        <div id=\"manage-students\" class=\"tab-content\">\n            <h2 class=\"section-title\">All Students</h2>\n            \n            <table class=\"student-table\">\n                <thead>\n                    <tr>\n                        <th>Student Name</th>\n                        <th>Email</th>\n                        <th>Password</th>\n                        <th>Notes</th>\n                        <th>Actions</th>\n                    </tr>\n                </thead>\n                <tbody id=\"studentsList\">\n                    <tr>\n                        <td colspan=\"5\" style=\"text-align: center; color: #999; padding: 30px;\">\n                            📭 No students added yet. Click \"Add New Student\" to get started!\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        \n        <!-- Tab 3: Quick Actions -->\n        <div id=\"quick-actions\" class=\"tab-content\">\n            <h2 class=\"section-title\">Quick Actions</h2>\n            \n            <div class=\"info-box\">\n                Use these tools to manage all student passwords at once.\n            </div>\n            \n            <div class=\"form-group\">\n                <label>📥 Import Students (Paste CSV):</label>\n                <textarea id=\"csvImport\" placeholder=\"Paste CSV data here. Format:\\nName, Email, Password\\nJohn Smith, john@email.com, password123\\nJane Doe, jane@email.com, password456\"></textarea>\n                <small style=\"color: #666; margin-top: 5px; display: block;\">Format: Name, Email, Password (one per line)</small>\n            </div>\n            \n            <div class=\"button-group\">\n                <button class=\"btn-success\" onclick=\"importStudents()\">📥 Import Students</button>\n                <button class=\"btn-primary\" onclick=\"downloadStudentList()\">📥 Download Student List</button>\n                <button class=\"btn-danger\" onclick=\"clearAllStudents()\">🗑️ Clear All Students</button>\n            </div>\n            \n            <hr style=\"margin: 30px 0; border: none; border-top: 1px solid #ddd;\">\n            \n            <h3 style=\"color: #5d3b3b; margin-bottom: 15px;\">📊 Statistics</h3>\n            <p style=\"font-size: 16px; color: #333;\">\n                <strong>Total Students:</strong> <span id=\"totalStudents\" style=\"color: #8b5a5a; font-weight: 600;\">0</span>\n            </p>\n        </div>\n    </div>\n    \n    <script>\n        // Initialize students from localStorage\n        let students = JSON.parse(localStorage.getItem('students')) || [];\n        \n        function showTab(tabName) {\n            // Hide all tabs\n            document.querySelectorAll('.tab-content').forEach(tab => {\n                tab.classList.remove('active');\n            });\n            document.querySelectorAll('.tab-btn').forEach(btn => {\n                btn.classList.remove('active');\n            });\n            \n            // Show selected tab\n            document.getElementById(tabName).classList.add('active');\n            event.target.classList.add('active');\n            \n            // Refresh student list when switching to manage tab\n            if (tabName === 'manage-students') {\n                displayStudents();\n            }\n            \n            // Update stats when switching to quick actions\n            if (tabName === 'quick-actions') {\n                document.getElementById('totalStudents').textContent = students.length;\n            }\n        }\n        \n        function generatePassword() {\n            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\n            let password = '';\n            for (let i = 0; i < 8; i++) {\n                password += chars.charAt(Math.floor(Math.random() * chars.length));\n            }\n            document.getElementById('studentPassword').value = password;\n        }\n        \n        function addStudent() {\n            const name = document.getElementById('studentName').value.trim();\n            const email = document.getElementById('studentEmail').value.trim();\n            const password = document.getElementById('studentPassword').value.trim();\n            const notes = document.getElementById('studentNotes').value.trim();\n            \n            if (!name || !email || !password) {\n                alert('❌ Please fill in Name, Email, and Password!');\n                return;\n            }\n            \n            // Check if email already exists\n            if (students.some(s => s.email === email)) {\n                alert('❌ This email is already registered!');\n                return;\n            }\n            \n            students.push({\n                id: Date.now(),\n                name: name,\n                email: email,\n                password: password,\n                notes: notes,\n                dateAdded: new Date().toLocaleDateString()\n            });\n            \n            localStorage.setItem('students', JSON.stringify(students));\n            \n            // Clear form\n            document.getElementById('studentName').value = '';\n            document.getElementById('studentEmail').value = '';\n            document.getElementById('studentPassword').value = '';\n            document.getElementById('studentNotes').value = '';\n            \n            showSuccess();\n            alert(`✅ ${name} has been added successfully!\\n\\nPassword: ${password}`);\n        }\n        \n        function displayStudents() {\n            const tbody = document.getElementById('studentsList');\n            \n            if (students.length === 0) {\n                tbody.innerHTML = '<tr><td colspan=\"5\" style=\"text-align: center; color: #999; padding: 30px;\">📭 No students added yet.</td></tr>';\n                return;\n            }\n            \n            tbody.innerHTML = students.map(student => `\n                <tr>\n                    <td><strong>${student.name}</strong></td>\n                    <td>${student.email}</td>\n                    <td><span class=\"password-display\">${student.password}</span></td>\n                    <td style=\"font-size: 12px; color: #666;\">${student.notes || '-'}</td>\n                    <td>\n                        <div class=\"action-buttons\">\n                            <button class=\"btn-copy\" onclick=\"copyPassword('${student.password}')\">📋 Copy</button>\n                            <button class=\"btn-danger\" onclick=\"deleteStudent(${student.id})\">🗑️ Delete</button>\n                        </div>\n                    </td>\n                </tr>\n            `).join('');\n        }\n        \n        function deleteStudent(id) {\n            if (confirm('Are you sure you want to delete this student?')) {\n                students = students.filter(s => s.id !== id);\n                localStorage.setItem('students', JSON.stringify(students));\n                displayStudents();\n                showSuccess();\n            }\n        }\n        \n        function copyPassword(password) {\n            navigator.clipboard.writeText(password).then(() => {\n                alert('✅ Password copied to clipboard!');\n            });\n        }\n        \n        function importStudents() {\n            const csv = document.getElementById('csvImport').value.trim();\n            if (!csv) {\n                alert('❌ Please paste CSV data first!');\n                return;\n            }\n            \n            const lines = csv.split('\\n');\n            let imported = 0;\n            \n            lines.forEach(line => {\n                const parts = line.split(',').map(p => p.trim());\n                if (parts.length >= 3 && parts[0] && parts[1] && parts[2]) {\n                    if (!students.some(s => s.email === parts[1])) {\n                        students.push({\n                            id: Date.now() + Math.random(),\n                            name: parts[0],\n                            email: parts[1],\n                            password: parts[2],\n                            notes: parts[3] || '',\n                            dateAdded: new Date().toLocaleDateString()\n                        });\n                        imported++;\n                    }\n                }\n            });\n            \n            localStorage.setItem('students', JSON.stringify(students));\n            document.getElementById('csvImport').value = '';\n            showSuccess();\n            alert(`✅ ${imported} students imported successfully!`);\n        }\n        \n        function downloadStudentList() {\n            let csv = 'Name,Email,Password,Notes,Date Added\\n';\n            students.forEach(student => {\n                csv += `${student.name},${student.email},${student.password},${student.notes},${student.dateAdded}\\n`;\n            });\n            \n            const blob = new Blob([csv], { type: 'text/csv' });\n            const url = window.URL.createObjectURL(blob);\n            const a = document.createElement('a');\n            a.href = url;\n            a.download = 'fastway-students-' + new Date().toISOString().slice(0, 10) + '.csv';\n            a.click();\n            window.URL.revokeObjectURL(url);\n        }\n        \n        function clearAllStudents() {\n            if (confirm('⚠️ Are you absolutely sure? This will delete ALL students!')) {\n                if (confirm('This action cannot be undone. Delete all students?')) {\n                    students = [];\n                    localStorage.setItem('students', JSON.stringify(students));\n                    displayStudents();\n                    alert('✅ All students have been deleted.');\n                }\n            }\n        }\n        \n        function showSuccess() {\n            const msg = document.getElementById('successMsg');\n            msg.style.display = 'block';\n            setTimeout(() => {\n                msg.style.display = 'none';\n            }, 3000);\n        }\n        \n        // Initial display\n        displayStudents();\n        document.getElementById('totalStudents').textContent = students.length;\n    </script>\n</body>\n</html>
